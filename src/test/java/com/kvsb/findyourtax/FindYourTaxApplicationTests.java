@@ -1,0 +1,13 @@
+package com.kvsb.findyourtax;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class FindYourTaxApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
