@@ -1,12 +1,9 @@
 package com.kvsb.findyourtax;
 
-import ch.qos.logback.classic.Logger;
 import com.google.gson.Gson;
 import com.gtbr.domain.Cep;
 import com.gtbr.utils.CEPUtils;
-import lombok.extern.slf4j.Slf4j;
 
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URI;
@@ -17,7 +14,6 @@ import java.time.Duration;
 
 import static java.time.temporal.ChronoUnit.MINUTES;
 
-@Slf4j
 public class ViaCepClient {
 
 //    private static final Logger logger = (Logger) LoggerFactory.getLogger(ViaCepClient.class);
