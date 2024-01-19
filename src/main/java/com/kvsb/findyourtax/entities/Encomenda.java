@@ -52,7 +52,9 @@ public class Encomenda {
         this.nomeDestinatario = nomeDestinatario;
     }
 
+
     public String getCepOrigem() {
+
         return cepOrigem;
     }
 
