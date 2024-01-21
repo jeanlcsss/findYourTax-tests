@@ -2,14 +2,13 @@ package com.kvsb.findyourtax.entities;
 
 import com.gtbr.domain.Cep;
 import com.kvsb.findyourtax.ViaCepClient;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
+@Table(name = "tb_encomenda")
 public class Encomenda {
 
     @Id
@@ -20,40 +19,47 @@ public class Encomenda {
     private String cepOrigem;
     private String cepDestino;
     private Double peso;
+    private LocalDate dataEntrega;
+    private Double valorFrete;
 
-    public Encomenda(String nome, String nomeDestinatario, String cepOrigem, String cepDestino, Double peso) {
+    public Encomenda(String nome, String nomeDestinatario, String cepOrigem, String cepDestino, Double peso, LocalDate dataEntrega, Double valorFrete) {
         this.nome = nome;
         this.nomeDestinatario = nomeDestinatario;
         this.cepOrigem = cepOrigem;
         this.cepDestino = cepDestino;
         this.peso = peso;
+        this.dataEntrega = dataEntrega;
+        this.valorFrete = valorFrete;
     }
 
-    public int calculoDiasEntrega(String cepOrigem, String cepDestino) {
-        Cep origem = ViaCepClient.findCep(cepOrigem);
-        Cep destino = ViaCepClient.findCep(cepDestino);
-        String ufOrigem = origem.getUf();
-        String ufDestino = destino.getUf();
-        String dddOrigem = origem.getDdd();
-        String dddDestino = destino.getDdd();
-
-        int diasPrevistos = 0;
-        if (dddOrigem.equals(dddDestino)) {
-            return diasPrevistos = 1;
-        }
-
-        if (ufOrigem.equals(ufDestino)) {
-            return diasPrevistos = 3;
-        }
-
-        return diasPrevistos = 10;
-
+    public Encomenda() {
     }
 
-    public Double valorFrete() {
-        double valorFrete = 1.45 * this.getPeso();
-        return valorFrete;
-    }
+//    public int calculoDiasEntrega(String cepOrigem, String cepDestino) {
+//        Cep origem = ViaCepClient.findCep(cepOrigem);
+//        Cep destino = ViaCepClient.findCep(cepDestino);
+//        String ufOrigem = origem.getUf();
+//        String ufDestino = destino.getUf();
+//        String dddOrigem = origem.getDdd();
+//        String dddDestino = destino.getDdd();
+//
+//        int diasPrevistos = 0;
+//        if (dddOrigem.equals(dddDestino)) {
+//            return diasPrevistos = 1;
+//        }
+//
+//        if (ufOrigem.equals(ufDestino)) {
+//            return diasPrevistos = 3;
+//        }
+//
+//        return diasPrevistos = 10;
+//
+//    }
+
+//    public Double valorFrete() {
+//        double valorFrete = 1.45 * this.getPeso();
+//        return valorFrete;
+//    }
 
     public Long getId() {
         return id;
@@ -103,6 +109,22 @@ public class Encomenda {
 
     public void setPeso(Double peso) {
         this.peso = peso;
+    }
+
+    public LocalDate getDataEntrega() {
+        return dataEntrega;
+    }
+
+    public void setDataEntrega(LocalDate dataEntrega) {
+        this.dataEntrega = dataEntrega;
+    }
+
+    public Double getValorFrete() {
+        return valorFrete;
+    }
+
+    public void setValorFrete(Double valorFrete) {
+        this.valorFrete = valorFrete;
     }
 
     @Override
