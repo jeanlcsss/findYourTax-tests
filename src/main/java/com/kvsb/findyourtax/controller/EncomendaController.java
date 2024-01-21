@@ -30,11 +30,10 @@ public class EncomendaController {
         this.service = service;
     }
 
-    @PostMapping("/calcular/{id}")
-    public ResponseEntity<EncomendaDTO> calcularFrete(Long id, @Valid @RequestBody EncomendaDTO encomendaDTO) {
-        Encomenda resultado = service.calcularTransporte(id, encomendaDTO);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(resultado.getId())
-                .toUri();
+    @PostMapping("/calcular")
+    public ResponseEntity<EncomendaDTO> calcularFrete(@Valid @RequestBody EncomendaDTO encomendaDTO) {
+        Encomenda resultado = service.calcularTransporte(encomendaDTO);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(resultado.getId()).toUri();
         return ResponseEntity.created(uri).body(new EncomendaDTO(resultado));
     }
 

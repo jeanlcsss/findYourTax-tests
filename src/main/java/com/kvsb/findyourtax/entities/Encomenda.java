@@ -1,7 +1,5 @@
 package com.kvsb.findyourtax.entities;
 
-import com.gtbr.domain.Cep;
-import com.kvsb.findyourtax.ViaCepClient;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -34,32 +32,6 @@ public class Encomenda {
 
     public Encomenda() {
     }
-
-//    public int calculoDiasEntrega(String cepOrigem, String cepDestino) {
-//        Cep origem = ViaCepClient.findCep(cepOrigem);
-//        Cep destino = ViaCepClient.findCep(cepDestino);
-//        String ufOrigem = origem.getUf();
-//        String ufDestino = destino.getUf();
-//        String dddOrigem = origem.getDdd();
-//        String dddDestino = destino.getDdd();
-//
-//        int diasPrevistos = 0;
-//        if (dddOrigem.equals(dddDestino)) {
-//            return diasPrevistos = 1;
-//        }
-//
-//        if (ufOrigem.equals(ufDestino)) {
-//            return diasPrevistos = 3;
-//        }
-//
-//        return diasPrevistos = 10;
-//
-//    }
-
-//    public Double valorFrete() {
-//        double valorFrete = 1.45 * this.getPeso();
-//        return valorFrete;
-//    }
 
     public Long getId() {
         return id;

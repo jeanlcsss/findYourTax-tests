@@ -1,7 +1,6 @@
 package com.kvsb.findyourtax.services;
 
 import com.google.gson.Gson;
-import com.kvsb.findyourtax.ViaCepClient;
 import com.kvsb.findyourtax.dto.CepDTO;
 import com.kvsb.findyourtax.dto.EncomendaDTO;
 import com.kvsb.findyourtax.dto.FreteDTO;
@@ -14,7 +13,6 @@ import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -96,28 +94,27 @@ public class EncomendaService {
 
     }
 
-    public Encomenda calcularTransporte(Long id, EncomendaDTO encomendaDTO) {
+    public Encomenda calcularTransporte(EncomendaDTO encomendaDTO) {
         LocalDate dataPrevista = LocalDate.now();
+
+        if (encomendaDTO.getCepOrigem() == null || encomendaDTO.getCepDestino() == null) {
+            throw new IllegalArgumentException("CEP de origem e destino são obrigatórios.");
+        }
 
         CepDTO cepOrigem = findCep(encomendaDTO.getCepOrigem());
         CepDTO cepDestino = findCep(encomendaDTO.getCepDestino());
 
-        if (cepOrigem == null || cepDestino == null) {
-            // Tratar o caso em que um CEP é inválido ou não foi encontrado
-            throw new RuntimeException("CEP inválido ou não encontrado");
-        }
-
         Double valorFrete = encomendaDTO.getPeso() * 1.45;
 
         if (cepOrigem.getDdd() != null && cepDestino.getDdd() != null && cepOrigem.getDdd().equals(cepDestino.getDdd())) {
-            dataPrevista = dataPrevista.plusDays(1);
+            dataPrevista = LocalDate.now().plusDays(1);
+        } else if (cepOrigem.getUf() != null && cepDestino.getUf() != null && cepOrigem.getUf().equals(cepDestino.getUf())) {
+            dataPrevista = LocalDate.now().plusDays(3);
+        } else {
+            dataPrevista = LocalDate.now().plusDays(10);
         }
 
-        if (cepOrigem.getUf() != null && cepDestino.getUf() != null && cepOrigem.getUf().equals(cepDestino.getUf())) {
-            dataPrevista = dataPrevista.plusDays(3);
-        }
 
-        dataPrevista = dataPrevista.plusDays(10);
 
         FreteDTO freteDTO = new FreteDTO(
                 encomendaDTO.getNome(),
@@ -134,7 +131,6 @@ public class EncomendaService {
 
         return resultado;
     }
-
 
     public CepDTO findCep(String cep) {
         CepUtils.validaCep(cep);
