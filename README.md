@@ -7,8 +7,11 @@ A small project w/ Spring Boot that aims to consume a Zip Code API and calculate
 
 * Java 
 * Spring Boot
+* HTML
+* CSS
+* JavaScript
 * Spring Data JPA
-* API RESTful
+* API REST
 * API ViaCep
 * Maven
 * Postman
