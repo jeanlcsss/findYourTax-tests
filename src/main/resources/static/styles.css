@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;700;900&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --pale-blue: hsl(225, 100%, 94%);
+    --very-pale-blue: hsl(225, 100%, 98%);
+    --desaturated-blue: hsl(224, 23%, 55%);
+    --dark-blue: hsl(223, 47%, 23%);
+    --bright-blue: hsl(245, 75%, 52%);
+    --bright-blue-hover: hsl(244, 83%, 68%);
+    --dark-green: hsl(130, 38%, 22%);
+    --bright-green: hsl(140, 80%, 42%);
+    --bright-green-hover: hsl(140, 90%, 58%);
+    --dark-gray: hsl(0, 0%, 20%);
+    --light-gray: hsl(0, 0%, 90%);
+    --orange: hsl(30, 100%, 50%);
+    --orange-hover: hsl(30, 100%, 60%);
+}
+
+body {
+    background-image: url(img/pattern-background-desktop.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: var(--very-pale-blue);
+    font-size: 16px;
+    font-family: "Red Hat Display", sans-serif;
+}
+
+.img {
+    width: 100%;
+}
+
+.card-title {
+    color: var(--dark-blue);
+    text-align: center;
+}
+
+.form {
+    width: 450px;
+    background-color: white;
+    color: var(--desaturated-blue);
+    border-radius: 20px;
+    margin: 50px auto;
+    overflow: hidden;
+    padding: 30px;
+}
+
+.container {
+    text-align: center;
+    font-size: 18px;
+}
+
+.container strong {
+    color: var(--dark-blue);
+}
+
+.form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+button {
+    width: 100%;
+    padding: 10px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+button {
+    background-color: var(--bright-blue);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--bright-blue-hover);
+}
+
+.resultado {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
