@@ -2,13 +2,16 @@ package com.kvsb.findyourtax.dto;
 
 
 import com.kvsb.findyourtax.entities.Encomenda;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
+@Getter
+@Setter
 public class EncomendaDTO {
 
 
@@ -38,6 +41,7 @@ public class EncomendaDTO {
         this.cepDestino = cepDestino;
         this.peso = peso;
         this.valorFrete = valorFrete;
+        this.dataEntrega = dataEntrega;
     }
 
     public EncomendaDTO(Encomenda entity) {
