@@ -68,4 +68,9 @@ public class EncomendaController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping(value = "/{id}/pagar")
+    public ResponseEntity<EncomendaDTO> pagarFrete(@PathVariable Long id) {
+        EncomendaDTO encomendaDTO = service.pagarFrete(id);
+        return ResponseEntity.ok(encomendaDTO);
+    }
 }
