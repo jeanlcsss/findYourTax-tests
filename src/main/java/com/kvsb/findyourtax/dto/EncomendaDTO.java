@@ -31,9 +31,10 @@ public class EncomendaDTO {
     private LocalDate dataEntrega;
     @Positive
     private Double valorFrete;
+    private String status;
 
 
-    public EncomendaDTO(Long id, String nome, String nomeDestinatario, String cepOrigem, String cepDestino, Double peso, Double valorFrete, LocalDate dataEntrega) {
+    public EncomendaDTO(Long id, String nome, String nomeDestinatario, String cepOrigem, String cepDestino, Double peso, Double valorFrete, LocalDate dataEntrega, String status) {
         this.id = id;
         this.nome = nome;
         this.nomeDestinatario = nomeDestinatario;
@@ -42,6 +43,7 @@ public class EncomendaDTO {
         this.peso = peso;
         this.valorFrete = valorFrete;
         this.dataEntrega = dataEntrega;
+        this.status = status;
     }
 
     public EncomendaDTO(Encomenda entity) {
@@ -53,6 +55,7 @@ public class EncomendaDTO {
         this.peso = entity.getPeso();
         this.dataEntrega = entity.getDataEntrega();
         this.valorFrete = entity.getValorFrete();
+        this.status = entity.getStatus().toString();
     }
 
     public Long getId() {
@@ -82,4 +85,7 @@ public class EncomendaDTO {
     public LocalDate getDataEntrega() { return dataEntrega; }
 
     public Double getValorFrete() { return valorFrete; }
+
+    public String getStatus() { return status; }
+
 }

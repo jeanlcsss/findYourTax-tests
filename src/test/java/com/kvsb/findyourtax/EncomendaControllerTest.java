@@ -45,7 +45,7 @@ public class EncomendaControllerTest {
 
         dataAtual = LocalDate.of(2025, 7, 14);
 
-        encomendaDTO = new EncomendaDTO(null, "Produto Teste", "Destinatário Teste", "01310100", "04538132", 10.0, null, null);
+        encomendaDTO = new EncomendaDTO(null, "Produto Teste", "Destinatário Teste", "01310100", "04538132", 10.0, null, null, "ORCADO");
 
         encomenda = new Encomenda("Produto Teste", "Destinatário Teste", "01310100", "04538132", 10.0, null, null);
         encomenda.setId(1L);

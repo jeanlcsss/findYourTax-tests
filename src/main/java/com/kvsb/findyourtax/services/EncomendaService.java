@@ -5,6 +5,7 @@ import com.kvsb.findyourtax.dto.CepDTO;
 import com.kvsb.findyourtax.dto.EncomendaDTO;
 import com.kvsb.findyourtax.dto.FreteDTO;
 import com.kvsb.findyourtax.entities.Encomenda;
+import com.kvsb.findyourtax.entities.StatusEncomenda;
 import com.kvsb.findyourtax.repositories.EncomendaRepository;
 import com.kvsb.findyourtax.services.exceptions.ResourceNotFoundException;
 import com.kvsb.findyourtax.utils.CepUtils;
@@ -77,6 +78,20 @@ public class EncomendaService {
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id não encontrado.");
         }
+    }
+
+    @Transactional
+    public EncomendaDTO pagarFrete(Long id) {
+        Encomenda entity = repository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Id não encontrado."));
+
+        if (entity.getStatus() != StatusEncomenda.ORCADO) {
+            throw new IllegalStateException("Apenas encomendas com status ORCADO podem ser pagas.");
+        }
+
+        entity.setStatus(StatusEncomenda.PAGO);
+        entity = repository.save(entity);
+        return new EncomendaDTO(entity);
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)

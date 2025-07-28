@@ -61,7 +61,7 @@ public class EncomendaServiceTest {
         existingId = 1L;
         nonExistingId = 2L;
 
-        encomendaDTO = new EncomendaDTO(null, "Produto Teste", "Destinatário Teste", "01310100", "04538132", 10.0, null, null);
+        encomendaDTO = new EncomendaDTO(null, "Produto Teste", "Destinatário Teste", "01310100", "04538132", 10.0, null, null, "ORCADO");
         encomenda = new Encomenda("Produto Teste", "Destinatário Teste", "01310100", "04538132", 10.0, LocalDate.now(), 14.5);
         encomenda.setId(existingId);
 
