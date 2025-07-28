@@ -19,6 +19,8 @@ public class Encomenda {
     private Double peso;
     private LocalDate dataEntrega;
     private Double valorFrete;
+    @Enumerated(EnumType.STRING)
+    private StatusEncomenda status;
 
     public Encomenda(String nome, String nomeDestinatario, String cepOrigem, String cepDestino, Double peso, LocalDate dataEntrega, Double valorFrete) {
         this.nome = nome;
@@ -28,6 +30,7 @@ public class Encomenda {
         this.peso = peso;
         this.dataEntrega = dataEntrega;
         this.valorFrete = valorFrete;
+        this.status = StatusEncomenda.ORCADO;
     }
 
     public Encomenda() {
@@ -97,6 +100,14 @@ public class Encomenda {
 
     public void setValorFrete(Double valorFrete) {
         this.valorFrete = valorFrete;
+    }
+
+    public StatusEncomenda getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusEncomenda status) {
+        this.status = status;
     }
 
     @Override

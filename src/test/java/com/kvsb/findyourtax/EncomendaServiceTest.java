@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.kvsb.findyourtax.dto.CepDTO;
 import com.kvsb.findyourtax.dto.EncomendaDTO;
 import com.kvsb.findyourtax.entities.Encomenda;
+import com.kvsb.findyourtax.entities.StatusEncomenda;
 import com.kvsb.findyourtax.repositories.EncomendaRepository;
 import com.kvsb.findyourtax.services.EncomendaService;
 import com.kvsb.findyourtax.services.exceptions.ResourceNotFoundException;
@@ -191,5 +192,40 @@ public class EncomendaServiceTest {
         assertThrows(ResourceNotFoundException.class, () -> service.delete(nonExistingId));
         verify(repository).existsById(nonExistingId);
         verify(repository, never()).deleteById(nonExistingId);
+    }
+
+    @Test
+    @DisplayName("Deve alterar o status de ORCADO para PAGO com sucesso")
+    void pagarFrete_QuandoStatusForOrcado_DeveMudarStatusParaPago() {
+        // Arrange
+        Encomenda encomendaOrcada = new Encomenda("Teste", "Dest", "123", "456", 1.0, LocalDate.now(), 10.0);
+        encomendaOrcada.setId(existingId);
+        
+        when(repository.findById(existingId)).thenReturn(Optional.of(encomendaOrcada));
+        when(repository.save(any(Encomenda.class))).thenAnswer(inv -> inv.getArgument(0));
+
+        // Act
+        EncomendaDTO resultadoDTO = service.pagarFrete(existingId);
+
+        //Assert
+        assertNotNull(resultadoDTO);
+        assertEquals(StatusEncomenda.PAGO.toString(), resultadoDTO.getStatus());
+        verify(repository).save(any(Encomenda.class));
+    }
+
+    @Test
+    @DisplayName("Deve lançar exceção ao tentar pagar encomenda que não está no status ORCADO")
+    void pagarFrete_QuandoStatusNaoForOrcado_DeveLancarExcecao() {
+        // Arrange
+        Encomenda encomendaEnviada = new Encomenda("Teste", "Dest", "123", "456", 1.0, LocalDate.now(), 10.0);
+        encomendaEnviada.setId(existingId);
+        encomendaEnviada.setStatus(StatusEncomenda.ENVIADO); 
+
+        when(repository.findById(existingId)).thenReturn(Optional.of(encomendaEnviada));
+
+        // Act & Assert
+        assertThrows(IllegalStateException.class, () -> {
+            service.pagarFrete(existingId);
+        }, "Apenas encomendas com status ORCADO podem ser pagas.");
     }
 }
